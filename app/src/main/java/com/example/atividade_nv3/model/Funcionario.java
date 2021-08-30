@@ -14,81 +14,74 @@ public class Funcionario {
     public Funcionario() {
     }
 
-    public Funcionario(String nome, int horasTrabalhadas, double valorHora, double salarioBruto,
-                       double salarioLiquido, double inss, double fgts, double ir) {
+    public Funcionario(String nome, double horasTrabalhadas, double valorHora) {
         this.nome = nome;
         this.horasTrabalhadas = horasTrabalhadas;
         this.valorHora = valorHora;
-        this.salarioBruto = salarioBruto;
-        this.salarioLiquido = salarioLiquido;
-        this.inss = inss;
-        this.fgts = fgts;
-        this.ir = ir;
-    }
 
-    public Funcionario(String toString, double parseDouble, double parseDouble1) {
+        this.salarioBruto = setSalarioBruto(valorHora, horasTrabalhadas);
+        this.inss = setInss(this.salarioBruto);
+        this.fgts = setFgts(this.salarioBruto);
+        this.ir = setIr(this.salarioBruto);
+        this.salarioLiquido = getSalarioBruto() - (getInss() + getIr());
+
     }
 
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public double getHorasTrabalhadas() {
-        return horasTrabalhadas;
-    }
-
-    public void setHorasTrabalhadas(double horasTrabalhadas) {
-        this.horasTrabalhadas = horasTrabalhadas;
-    }
-
-    public double getValorHora() { return valorHora; }
-
-    public void setValorHora(int valorHora) {
-        this.valorHora = valorHora;
     }
     
     public double getSalarioBruto() {
         return salarioBruto;
     }
     
-    public void setSalarioBruto(double salarioBruto) { this.salarioBruto = salarioBruto; }
+    public double setSalarioBruto(double vhoras, double htrabalhadas) {
+        return vhoras * htrabalhadas;
+    }
 
     public double getSalarioLiquido() {
         return salarioLiquido;
-    }
-
-    public void setSalarioLiquido(double salarioLiquido) {
-        this.salarioLiquido = salarioLiquido;
     }
 
     public double getFgts() {
         return fgts;
     }
 
-    public void setFgts(double fgts) {
-        this.fgts = fgts;
+    public double setFgts(double salario) {
+        return salario * 0.08;
     }
 
     public double getIr() {
-
         return ir;
     }
 
-    public void setIr(double ir) {
-        this.ir = ir;
+    public double setIr(double salario) {
+        if(salario > 2743.25) {
+            return salario * 0.275;
+        }
+        else if(salario >= 1372.82 && salario <= 2743.25){
+            return salario * 0.15;
+        }
+        else if(salario <= 1372.81) {return 0;}
+        return 0;
     }
 
     public double getInss() {
         return inss;
     }
 
-    public void setInss(double inss){
+    public double setInss(double salario){
+        if(salario <= 868.29){
+            return salario * 0.08;
+        }
+        else if (salario >= 868.30 && salario <= 2894.28) {
+            return salario * 0.09;
+        }
+        else if (salario > 2894.29) {
+            return 318.37;
+        }
 
-        this.inss = inss;
+        return 0;
     }
 
     @Override

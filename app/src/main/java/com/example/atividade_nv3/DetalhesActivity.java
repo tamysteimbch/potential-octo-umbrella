@@ -35,11 +35,11 @@ public class DetalhesActivity extends AppCompatActivity {
         Funcionario funcionario = dao.getFuncionario(position);
 
         tvNomeFuncionario.setText(funcionario.getNome());
-        tvSalarioBruto.setText("teste: " + funcionario.getHorasTrabalhadas());
+        tvSalarioBruto.setText("Salário bruto: " + funcionario.getSalarioBruto());
         tvFGTS.setText("FTGS: " + funcionario.getFgts());
         tvINSS.setText("INSS: " + funcionario.getInss());
         tvIR.setText("IR: " + funcionario.getIr());
-        tvSalarioLiquido.setText("Liquido: " + funcionario.getSalarioLiquido());
+        tvSalarioLiquido.setText("Salário Líquido: " + funcionario.getSalarioLiquido());
 
         bVoltar.setOnClickListener(v -> {
             finish();
